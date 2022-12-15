@@ -19,7 +19,7 @@ def draw_statevector_grid(screen):
     for i in range(len(basis_states)):
         text = font.vector_font.render(basis_states[i], 1, globals.WHITE)
         screen.blit(text, (globals.WINDOW_WIDTH - text.get_width(),
-                           i*statevector_height + text.get_height()))
+                            i*statevector_height + text.get_height()))
 
 def draw_score(screen, classical_score, quantum_score):
     font = resources.Font()
