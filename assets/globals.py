@@ -2,6 +2,9 @@
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
 MAGENTA = 255, 0, 255
+RED = 255, 0, 0
+BLUE = 0, 0, 255
+GREEN = 0, 255, 0
 GRAY = 127, 127, 127
 
 # number of the qubits for the quantum circuit
@@ -18,4 +21,4 @@ PADDLE_HEIGHT = round(FIELD_HEIGHT / 2**NUM_QUBITS)
 MEASUREMENT_COOLDOWN_TIME = 4000
 
 # score to win a game
-WIN_SCORE = 1
+WIN_SCORE = 3

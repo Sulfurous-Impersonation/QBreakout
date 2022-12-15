@@ -10,19 +10,26 @@ class Computer:
         pass
 
 class ClassicalComputer(Computer):
-    def __init__(self, paddle):
+    def __init__(self, paddle, blocks):
         self.paddle = paddle
+        self.blocks = blocks
         self.score = 0
         self.speed = 3
 
     def update(self, ball):
-        if self.paddle.rect.centery - ball.rect.centery > 0:
-            self.paddle.rect.y -= self.speed
-        else:
-            self.paddle.rect.y += self.speed
+        #if self.paddle.rect.centery - ball.rect.centery > 0:
+        #    self.paddle.rect.y -= self.speed
+        #else:
+        #    self.paddle.rect.y += self.speed
         
         if pygame.sprite.collide_mask(ball, self.paddle):
             ball.bounce()
+        for i in self.blocks:
+            if pygame.sprite.collide_mask(ball, i):
+                ball.bounce()
+                self.blocks.remove(i)
+
+
 
 class QuantumComputer(Computer):
     def __init__(self, quantum_paddles, circuit_grid) -> None:
