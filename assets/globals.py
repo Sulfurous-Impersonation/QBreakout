@@ -22,3 +22,7 @@ MEASUREMENT_COOLDOWN_TIME = 4000
 
 # score to win a game
 WIN_SCORE = 3
+
+# whether or not the program will simulate a quantum computer, or send it to
+# one of IBM's quantum computers to really run (not recommended)
+QUANTUM = False

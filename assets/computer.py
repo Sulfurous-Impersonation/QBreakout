@@ -2,6 +2,7 @@ import pygame
 import qiskit
 
 from . import globals
+from qiskit.tools.monitor import job_monitor
 
 class Computer:
     def __init__(self):
@@ -29,10 +30,9 @@ class ClassicalComputer(Computer):
                 ball.bounce()
                 self.blocks.remove(i)
 
-
-
 class QuantumComputer(Computer):
     def __init__(self, quantum_paddles, circuit_grid) -> None:
+        qiskit.IBMQ.load_account() #load IBMQ account to run on QC
         self.paddles = quantum_paddles.paddles 
         self.score = 0
         self.circuit_grid = circuit_grid
@@ -62,12 +62,22 @@ class QuantumComputer(Computer):
             self.paddles[basis_state].image.set_alpha(abs(amplitude)**2*255)
 
     def update_after_measurement(self):
-        simulator = qiskit.BasicAer.get_backend("qasm_simulator")
-        circuit = self.circuit_grid.model.compute_circuit()
-        circuit.measure_all()
-        transpiled_circuit = qiskit.transpile(circuit, simulator)
-        counts = simulator.run(transpiled_circuit, shots=1).result().get_counts()
-        self.measured_state = int(list(counts.keys())[0], 2)
+        if not globals.QUANTUM:
+            simulator = qiskit.BasicAer.get_backend("qasm_simulator")
+            circuit = self.circuit_grid.model.compute_circuit()
+            circuit.measure_all()
+            transpiled_circuit = qiskit.transpile(circuit, simulator)
+            counts = simulator.run(transpiled_circuit, shots=1).result().get_counts()
+            self.measured_state = int(list(counts.keys())[0], 2)
+
+        else:
+            provider = qiskit.IBMQ.get_provider('ibm-q')
+            qcomp = provider.get_backend('ibmq_quito')
+            job = qiskit.execute(circuit, backend=qcomp)
+            job_monitor(job)
+            counts = job.result().get_counts()
+            self.measured_state = int(list(counts.keys())[0], 2)
+
 
         for paddle in self.paddles:
             paddle.image.set_alpha(0)
