@@ -18,11 +18,6 @@ class ClassicalComputer(Computer):
         self.speed = 3
 
     def update(self, ball):
-        #if self.paddle.rect.centery - ball.rect.centery > 0:
-        #    self.paddle.rect.y -= self.speed
-        #else:
-        #    self.paddle.rect.y += self.speed
-        
         if pygame.sprite.collide_mask(ball, self.paddle):
             ball.bounce()
         for i in self.blocks:

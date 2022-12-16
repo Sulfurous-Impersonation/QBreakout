@@ -46,4 +46,3 @@ def draw_wall(screen, wall):
 def draw_blocks(screen, blocks):
     for i in blocks:
         pygame.draw.rect(screen, i.color, i)
-        #print(i)

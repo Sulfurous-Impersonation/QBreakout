@@ -31,7 +31,6 @@ class GameScene(Scene):
         super().__init__()
         self.circuit_grid = CircuitGrid(5, globals.FIELD_HEIGHT)
         
-        #self.classical_paddle = paddle.Paddle(9*globals.WIDTH_UNIT)
         self.wall = paddle.Wall()
         self.classical_blocks = paddle.ClassicalBlocks(globals.WIDTH_UNIT*2)
         self.classical_computer = computer.ClassicalComputer(self.wall, self.classical_blocks.blocks)
@@ -41,8 +40,6 @@ class GameScene(Scene):
         self.pong_ball = ball.Ball()
         self.moving_sprites = pygame.sprite.Group()
 
-        #self.moving_sprites.add(self.classical_paddle)
-        #self.moving_sprites.add(self.wall)
         self.moving_sprites.add(self.quantum_paddles.paddles)
         self.moving_sprites.add(self.pong_ball)
     
@@ -81,7 +78,7 @@ class LoseScene(Scene):
             if event.type == pygame.QUIT:
                 sm.exit = True
             elif event.type == pygame.KEYDOWN:
-                # press SPACE to reply
+                # press SPACE to replay
                 if event.key == pygame.K_SPACE:
                     sm.push(GameScene())
 
@@ -112,7 +109,7 @@ class WinScene(Scene):
             if event.type == pygame.QUIT:
                 sm.exit = True
             elif event.type == pygame.KEYDOWN:
-                # press SPACE to reply
+                # press SPACE to replay
                 if event.key == pygame.K_SPACE:
                     sm.push(GameScene())
 
